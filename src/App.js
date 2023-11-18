@@ -11,8 +11,11 @@ import Men from './Components/Assets/banner_mens.png';
 import Women from './Components/Assets/banner_women.png';
 import Kids from './Components/Assets/banner_kids.png';
 import Login from './Pages/Login';
+import { useContext } from 'react';
+import { ShopContext } from './Context/ShopContext';
 
 function App() {
+  const {men,women,kid}=useContext(ShopContext);
   return (
     <BrowserRouter>
     <div className="App">
@@ -20,9 +23,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Shop />} />
         <Route path='/shop' element={<Shop />} />
-        <Route path='/men' element={<ShopCategory banner={Men} category="men" />} />
-        <Route path='/women' element={<ShopCategory banner={Women} category="women" />} />
-        <Route path='/kids' element={<ShopCategory banner={Kids} category="kid" />} />
+        <Route path='/men' element={<ShopCategory banner={Men} category="men" data={men} />} />
+        <Route path='/women' element={<ShopCategory banner={Women} category="women" data={women} />} />
+        <Route path='/kids' element={<ShopCategory banner={Kids} category="kid" data={kid} />} />
         <Route path='/product' element={<Product />}>
           <Route path=':productID' element={<Product />} />
         </Route>

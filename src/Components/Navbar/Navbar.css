@@ -7,12 +7,14 @@
     border-bottom: 1px solid #eaeaea;
 }
 
-.nav-logo
+.nav-logo a
 {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
+    text-decoration: none;
+    color: var(--gray);
 }
 .nav-logo p
 {

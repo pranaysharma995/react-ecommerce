@@ -1,24 +1,39 @@
-import './NewCollection.css';
-import new_collections from '../Assets/new_collections';
-import Item from '../Item/Item';
+import './NewCollection.css'
+import Item from '../Item/Item'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-function NewCollection()
-{
-    return(
-        <div className="new-collections">
-            <h1>New Collection</h1>
-            <hr />
-            <div className='collections'>
-                {
-                    new_collections.map((item,index) =>
-                    (
-                        <Item key={index} id={item.id} name={item.name} image={item.image} new_price={item.new_price} old_price={item.old_price} />
-                    ))
-                }
+function NewCollection () {
+  const [data, setData] = useState([])
 
-            </div>
-        </div>
-    )
+  useEffect(function () {
+    axios
+      .get('http://localhost:7000/shop/latest')
+      .then(res => {
+        setData(res.data.data)
+      })
+      .catch(err => {
+        setData([])
+      })
+  }, [])
+  return (
+    <div className='new-collections'>
+      <h1>New Collection</h1>
+      <hr />
+      <div className='collections'>
+        {data.map((item, index) => (
+          <Item
+            key={index}
+            id={item._id}
+            name={item.name}
+            image={item.productImage}
+            price={item.price}
+            oldPrice={item.oldPrice}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
 
-export default NewCollection;
+export default NewCollection

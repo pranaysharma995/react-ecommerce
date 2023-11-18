@@ -42,7 +42,10 @@ function ShopContextProvider ({ children }) {
   const removeFromCart = id => {
     setCart(prev => ({ ...prev, [id]: prev[id] - 1 }))
   }
-  const contextValue = {productData, cartData, addToCart, removeFromCart }
+  const men=productData.filter((item)=> item.category === 'men');
+  const women=productData.filter((item)=> item.category === 'women');
+  const kid=productData.filter((item)=> item.category === 'kid');
+  const contextValue = {productData, cartData, addToCart, removeFromCart,men,women,kid }
   return (
     <ShopContext.Provider value={contextValue}>{children}</ShopContext.Provider>
   )

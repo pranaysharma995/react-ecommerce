@@ -12,9 +12,14 @@ function Product()
     const product=productData.find((e) => e._id === productID);
     return(
        <div>
-        <Breadcrum product={product} />
-        <ProductDisplay product={product} />
-        <DescriptionBox />
+        {
+            product &&
+            <><Breadcrum product={product} />
+            <ProductDisplay product={product} />
+            <DescriptionBox />
+            </>
+        }
+
         </div>
     )
 }
