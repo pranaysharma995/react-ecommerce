@@ -1,10 +1,33 @@
 import { useContext } from 'react'
-import './CartItems.css';
+import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext'
 import Remove from '../Assets/cart_cross_icon.png'
+import {useState,useEffect,useCallback} from 'react';
 
 function CartItems () {
-  const { data, cartData, removeFromCart } = useContext(ShopContext)
+  const { productData, cartData, removeFromCart } = useContext(ShopContext)
+  const [total,setTotal]=useState(0);
+
+
+ const getTotal=useCallback(function()
+ {
+  let total=0;
+  productData.map((item, index) => {
+    if (cartData[item._id] > 0) {
+      total+=item.price*cartData[item._id]
+      
+    }})
+
+    setTotal(total);
+
+ },[productData,cartData])
+
+  useEffect(function()
+  {
+    getTotal();
+
+
+  },[getTotal])
 
   return (
     <div className='cart-items'>
@@ -17,21 +40,27 @@ function CartItems () {
         <p>Remove</p>
       </div>
       <hr />
-      {data.map((item, index) => {
-        if (cartData[item.id] > 0) {
+      {productData.map((item, index) => {
+        if (cartData[item._id] > 0) {
           return (
-            <div className='cart-item'>
+            <div key={item._id} className='cart-item'>
               <div className='cart-items-format'>
-                <img src={item.image} className='product' alt='cart icon' />
+                <img
+                  src={process.env.REACT_APP_PUBLIC_URL+"/"+ item.productImage}
+                  className='product'
+                  alt='cart product'
+                />
                 <p>{item.name}</p>
-                <p>${item.new_price}</p>
-                <button type='btn' className='cart-item-quantity'>{cartData[item.id]}</button>
-                <p>${item.new_price * cartData[item.id] }</p>
+                <p>${item.price}</p>
+                <button type='btn' className='cart-item-quantity'>
+                  {cartData[item._id]}
+                </button>
+                <p>${item.price * cartData[item._id]}</p>
                 <img
                   src={Remove}
                   className='remove-cart'
                   onClick={() => {
-                    removeFromCart(item.id)
+                    removeFromCart(item._id)
                   }}
                   alt='remove '
                 />
@@ -42,16 +71,17 @@ function CartItems () {
         }
         return null
       })}
+
       <div className='cart-items-down'>
         <div className='cart-items-total'>
-            <h1>Total</h1>
-            <div>
-                <div className='cart-items-total-items'>
-                    <p>SubTotal</p>
-                    <p>${0}</p>
-                </div>
-                <hr />
+          <h1>Total</h1>
+          <div>
+            <div className='cart-items-total-items'>
+              <p>SubTotal</p>
+              <p>${total}</p>
             </div>
+            <hr />
+          </div>
         </div>
       </div>
     </div>

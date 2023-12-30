@@ -10,7 +10,6 @@ function Popular () {
     axios
       .get('http://localhost:7000/shop/offer')
       .then(res => {
-        console.log(res.data.data);
         setData(res.data.data)
       })
       .catch(err => {

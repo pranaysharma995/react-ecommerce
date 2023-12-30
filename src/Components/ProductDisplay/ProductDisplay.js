@@ -5,18 +5,42 @@ import { useContext } from 'react'
 import { ShopContext } from '../../Context/ShopContext'
 
 function ProductDisplay ({ product }) {
-    const {addToCart}=useContext(ShopContext);
+  const { addToCart } = useContext(ShopContext)
+
+  const updateCartItem = id => {
+    addToCart(id)
+    window.scrollTo({
+      top:0,
+      left:0,
+      behavior:'smooth'
+    });
+  }
   return (
     <div className='productdisplay'>
       <div className='productdisplay-left'>
         <div className='productdisplay-img-list'>
-          <img src={process.env.REACT_APP_PUBLIC_URL+"/"+ product.productImage} alt='product' />
-          <img src={process.env.REACT_APP_PUBLIC_URL+"/"+ product.productImage} alt='product' />
-          <img src={process.env.REACT_APP_PUBLIC_URL+"/"+ product.productImage} alt='product' />
-          <img src={process.env.REACT_APP_PUBLIC_URL+"/"+ product.productImage} alt='product' />
+          <img
+            src={process.env.REACT_APP_PUBLIC_URL + '/' + product.productImage}
+            alt='product'
+          />
+          <img
+            src={process.env.REACT_APP_PUBLIC_URL + '/' + product.productImage}
+            alt='product'
+          />
+          <img
+            src={process.env.REACT_APP_PUBLIC_URL + '/' + product.productImage}
+            alt='product'
+          />
+          <img
+            src={process.env.REACT_APP_PUBLIC_URL + '/' + product.productImage}
+            alt='product'
+          />
         </div>
         <div className='productdisplay-img'>
-          <img src={process.env.REACT_APP_PUBLIC_URL+"/"+ product.productImage} alt='product' />
+          <img
+            src={process.env.REACT_APP_PUBLIC_URL + '/' + product.productImage}
+            alt='product'
+          />
         </div>
       </div>
       <div className='productdisplay-right'>
@@ -32,26 +56,31 @@ function ProductDisplay ({ product }) {
           <div className='productdisplay-right-price-old'>
             ${product.oldPrice}
           </div>
-          <div className='productdisplay-right-price-new'>
-            ${product.price}
+          <div className='productdisplay-right-price-new'>${product.price}</div>
+        </div>
+        <div className='productdisplay-right-description'>
+          Lorep ipsum is simlu dummy text
+        </div>
+        <div className='productdisplay-right-size'>
+          <h1>Select Size</h1>
+          <div className='productdisplay-right-sizes'>
+            <div>S</div>
+            <div>M</div>
+            <div>L</div>
+            <div>XL</div>
+            <div>XXL</div>
           </div>
-        </div>
-        <div  className='productdisplay-right-description'>
-            Lorep ipsum is simlu dummy text
-        </div>
-        <div  className='productdisplay-right-size'>
-            <h1>Select Size</h1>
-            <div  className='productdisplay-right-sizes'>
-                <div>S</div>
-                <div>M</div>
-                <div>L</div>
-                <div>XL</div>
-                <div>XXL</div>
-            </div>
-            <button onClick={()=> {addToCart(product.id)}}>Add To Cart</button>
-            <p className='productdisplay-right-category'>
-                <span>Category : </span>{product.name}
-            </p>
+          <button
+            onClick={() => {
+              updateCartItem(product._id)
+            }}
+          >
+            Add To Cart
+          </button>
+          <p className='productdisplay-right-category'>
+            <span>Category : </span>
+            {product.name}
+          </p>
         </div>
       </div>
     </div>

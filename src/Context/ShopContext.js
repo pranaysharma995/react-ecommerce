@@ -6,11 +6,12 @@ export const ShopContext = createContext(null)
 function ShopContextProvider ({ children }) {
   const [productData, setProductData] = useState([])
   const [cartData, setCart] = useState()
+  console.log(cartData);
 
   const getDefaultCart =useCallback(() => {
       let obj = {}
       for (let i = 0; i < productData.length; i++) {
-        obj[i] = 0
+        obj[productData[i]._id] = 0
       }
       return obj
     },[productData])

@@ -18,7 +18,7 @@
     margin: 20px 0px;
 
 }
-.login-signup-fields
+.login-signup-fields > form
 {
     display: flex;
     flex-direction: column;
@@ -65,4 +65,10 @@
     margin-top: 25px;
     gap: 20px;
     color: var(--gray);
+}
+.error-msg
+{
+    margin-top: 10px;
+    color: brown;
+    font-size: 12px;
 }
